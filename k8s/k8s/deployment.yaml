@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-management-deployment
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-management
+  template:
+    metadata:
+      labels:
+        app: student-management
+    spec:
+      containers:
+      - name: student-management
+        image: iheb1bouallagui/student-management:20251209-123945
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: student-management-config
+        - secretRef:
+            name: student-management-secret
